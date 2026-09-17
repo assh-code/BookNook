@@ -1,0 +1,544 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="BookNook - Your cozy online bookstore and stationery shop.">
+    <title>BookNook | Books & Stationery</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="header">
+    <div class="topbar">
+        <div class="logo" onclick="showPage('home')">
+            <span class="logo-icon">B</span>
+            <span>Book<span class="logo-green">Nook</span></span>
+        </div>
+
+        <form class="search-box" id="searchForm">
+            <span>⌕</span>
+            <input type="search" id="searchInput"
+                   placeholder="Search books, pens, notebooks...">
+            <button type="submit">Search</button>
+        </form>
+
+        <div class="header-actions">
+            <button class="icon-button" onclick="showPage('wishlist')" title="Wishlist">
+                ♡ <span class="action-label">Wishlist</span>
+                <span id="wishlistCount" class="count">0</span>
+            </button>
+
+            <button class="icon-button" onclick="showPage('cart')" title="Shopping cart">
+                ♧ <span class="action-label">Cart</span>
+                <span id="cartCount" class="count">0</span>
+            </button>
+
+            <button class="icon-button" onclick="openLogin()" title="My account">
+                ♙ <span class="action-label">Account</span>
+            </button>
+        </div>
+    </div>
+
+    <nav class="navbar">
+        <button onclick="showPage('home')">Home</button>
+        <button onclick="showPage('shop')">All Products</button>
+        <button onclick="filterCategory('Fiction')">Fiction</button>
+        <button onclick="filterCategory('Non-Fiction')">Non-Fiction</button>
+        <button onclick="filterCategory('Children')">Children's Books</button>
+        <button onclick="filterCategory('Stationery')">Stationery</button>
+        <button onclick="showPage('about')">About Us</button>
+        <button onclick="showPage('contact')">Contact</button>
+    </nav>
+</header>
+
+<main id="mainContent">
+
+    <!-- HOME PAGE -->
+    <section id="homePage" class="page">
+
+        <section class="hero">
+            <div class="hero-content">
+                <span class="eyebrow">YOUR LITTLE CORNER OF HAPPINESS</span>
+
+                <h1>Every book has a story.<br>
+                    <span>Every page, a new beginning.</span>
+                </h1>
+
+                <p>
+                    Discover your next favorite book, find your
+                    perfect stationery, and make every study session special.
+                </p>
+
+                <div class="hero-buttons">
+                    <button class="btn-primary" onclick="showPage('shop')">
+                        Explore Collection →
+                    </button>
+                    <button class="btn-outline" onclick="filterCategory('Stationery')">
+                        Shop Stationery
+                    </button>
+                </div>
+
+                <div class="hero-note">
+                    <span>✦</span> Books, stationery & little things that inspire
+                </div>
+            </div>
+
+            <div class="hero-image">
+                <img
+                    src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&w=1000&q=85"
+                    alt="Cozy bookstore filled with books">
+                <div class="hero-badge">
+                    <span>✦</span>
+                    <div>
+                        <strong>Read more.</strong>
+                        <small>Dream bigger.</small>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-heading">
+                <div>
+                    <span class="eyebrow">FIND YOUR FAVORITE</span>
+                    <h2>Shop by category</h2>
+                </div>
+                <button class="text-link" onclick="showPage('shop')">
+                    View everything →
+                </button>
+            </div>
+
+            <div class="category-grid">
+                <button class="category-card cat-fiction"
+                        onclick="filterCategory('Fiction')">
+                    <span class="category-symbol">📚</span>
+                    <strong>Fiction</strong>
+                    <small>Stories to get lost in</small>
+                    <span class="category-arrow">↗</span>
+                </button>
+
+                <button class="category-card cat-nonfiction"
+                        onclick="filterCategory('Non-Fiction')">
+                    <span class="category-symbol">📖</span>
+                    <strong>Non-Fiction</strong>
+                    <small>Learn something new</small>
+                    <span class="category-arrow">↗</span>
+                </button>
+
+                <button class="category-card cat-children"
+                        onclick="filterCategory('Children')">
+                    <span class="category-symbol">🧸</span>
+                    <strong>Children's Books</strong>
+                    <small>Little readers, big dreams</small>
+                    <span class="category-arrow">↗</span>
+                </button>
+
+                <button class="category-card cat-stationery"
+                        onclick="filterCategory('Stationery')">
+                    <span class="category-symbol">✏️</span>
+                    <strong>Stationery</strong>
+                    <small>Make every page yours</small>
+                    <span class="category-arrow">↗</span>
+                </button>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-heading">
+                <div>
+                    <span class="eyebrow">READERS' FAVORITES</span>
+                    <h2>Books worth reading</h2>
+                    <p>Real books for your bookshelf and study table.</p>
+                </div>
+                <button class="text-link" onclick="showPage('shop')">
+                    Shop all books →
+                </button>
+            </div>
+
+            <div id="featuredBooks" class="product-grid"></div>
+        </section>
+
+        <section class="section stationery-section">
+            <div class="section-heading">
+                <div>
+                    <span class="eyebrow">A LITTLE STUDY INSPIRATION</span>
+                    <h2>Your stationery corner</h2>
+                    <p>Colorful pens, notebooks, and everything in between.</p>
+                </div>
+                <button class="text-link" onclick="filterCategory('Stationery')">
+                    Shop stationery →
+                </button>
+            </div>
+
+            <div id="featuredStationery" class="product-grid"></div>
+        </section>
+
+        <section class="newsletter">
+            <div>
+                <span class="eyebrow">A NOTE FROM BOOKNOOK</span>
+                <h2>Good books. Great ideas. Happy studying.</h2>
+                <p>Make space for a little more reading and creativity.</p>
+            </div>
+            <button class="btn-primary" onclick="showPage('shop')">
+                Find your next favorite →
+            </button>
+        </section>
+    </section>
+
+    <!-- PRODUCT LISTING -->
+    <section id="shopPage" class="page hidden">
+        <div class="page-banner">
+            <span class="eyebrow">THE BOOKNOOK COLLECTION</span>
+            <h1 id="shopTitle">All Products</h1>
+            <p>Books and stationery for curious minds.</p>
+        </div>
+
+        <div class="shop-layout">
+            <aside class="filters">
+                <h3>Filter products</h3>
+
+                <label for="categoryFilter">Category</label>
+                <select id="categoryFilter">
+                    <option value="All">All Products</option>
+                    <option value="Fiction">Fiction</option>
+                    <option value="Non-Fiction">Non-Fiction</option>
+                    <option value="Children">Children's Books</option>
+                    <option value="Stationery">Stationery</option>
+                </select>
+
+                <label for="authorFilter">Author / Brand</label>
+                <select id="authorFilter">
+                    <option value="All">All Authors & Brands</option>
+                </select>
+
+                <label for="priceFilter">Maximum price</label>
+                <input type="range" id="priceFilter"
+                       min="50" max="2000" step="50" value="2000">
+                <div class="range-value">Up to ₹<span id="priceValue">2000</span></div>
+
+                <label for="ratingFilter">Minimum rating</label>
+                <select id="ratingFilter">
+                    <option value="0">All Ratings</option>
+                    <option value="4">4+ Stars</option>
+                    <option value="4.5">4.5+ Stars</option>
+                </select>
+
+                <label for="languageFilter">Language</label>
+                <select id="languageFilter">
+                    <option value="All">All Languages</option>
+                    <option value="English">English</option>
+                    <option value="Hindi">Hindi</option>
+                </select>
+
+                <button class="btn-outline full-width" onclick="resetFilters()">
+                    Reset Filters
+                </button>
+            </aside>
+
+            <div class="shop-results">
+                <div class="shop-toolbar">
+                    <p id="resultCount">Showing products</p>
+                    <select id="sortFilter" aria-label="Sort products">
+                        <option value="default">Recommended</option>
+                        <option value="low">Price: Low to High</option>
+                        <option value="high">Price: High to Low</option>
+                        <option value="rating">Top Rated</option>
+                        <option value="name">Name: A to Z</option>
+                    </select>
+                </div>
+
+                <div id="productGrid" class="product-grid"></div>
+                <p id="emptyMessage" class="empty-message hidden">
+                    No products found. Try changing your filters.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRODUCT DETAILS -->
+    <section id="detailPage" class="page hidden">
+        <div class="breadcrumb">
+            <button onclick="showPage('home')">Home</button> /
+            <button onclick="showPage('shop')">Shop</button> /
+            <span id="detailBreadcrumb">Product</span>
+        </div>
+
+        <div id="productDetail" class="detail-layout"></div>
+
+        <section class="section">
+            <div class="section-heading">
+                <div>
+                    <span class="eyebrow">KEEP EXPLORING</span>
+                    <h2>You may also like</h2>
+                </div>
+            </div>
+            <div id="relatedProducts" class="product-grid"></div>
+        </section>
+    </section>
+
+    <!-- CART -->
+    <section id="cartPage" class="page hidden">
+        <div class="page-banner">
+            <span class="eyebrow">YOUR LITTLE SHOPPING BAG</span>
+            <h1>Shopping Cart</h1>
+            <p>Your next favorite things are waiting.</p>
+        </div>
+        <div id="cartContent" class="cart-layout"></div>
+    </section>
+
+    <!-- WISHLIST -->
+    <section id="wishlistPage" class="page hidden">
+        <div class="page-banner">
+            <span class="eyebrow">SAVED FOR LATER</span>
+            <h1>My Wishlist ♡</h1>
+            <p>Keep the books and stationery you love in one place.</p>
+        </div>
+        <div id="wishlistProducts" class="product-grid"></div>
+    </section>
+
+    <!-- CHECKOUT -->
+    <section id="checkoutPage" class="page hidden">
+        <div class="page-banner">
+            <span class="eyebrow">ALMOST YOURS</span>
+            <h1>Checkout</h1>
+            <p>Enter your details to complete your demo order.</p>
+        </div>
+
+        <div class="checkout-layout">
+            <form id="checkoutForm" class="checkout-form">
+                <h2>Shipping address</h2>
+
+                <label for="checkoutName">Full name</label>
+                <input id="checkoutName" name="name" required
+                       placeholder="Enter your full name">
+
+                <label for="checkoutEmail">Email address</label>
+                <input id="checkoutEmail" name="email" type="email"
+                       required placeholder="you@example.com">
+
+                <label for="checkoutPhone">Phone number</label>
+                <input id="checkoutPhone" name="phone" type="tel"
+                       required pattern="[0-9]{10}"
+                       placeholder="10-digit mobile number">
+
+                <label for="checkoutAddress">Address</label>
+                <textarea id="checkoutAddress" name="address"
+                          required placeholder="House number, street, area"></textarea>
+
+                <div class="form-row">
+                    <div>
+                        <label for="checkoutCity">City</label>
+                        <input id="checkoutCity" name="city" required>
+                    </div>
+                    <div>
+                        <label for="checkoutPincode">PIN code</label>
+                        <input id="checkoutPincode" name="pincode"
+                               required pattern="[0-9]{6}">
+                    </div>
+                </div>
+
+                <h2>Payment method</h2>
+
+                <label class="payment-option">
+                    <input type="radio" name="payment" value="Cash on Delivery" checked>
+                    Cash on Delivery
+                </label>
+
+                <label class="payment-option">
+                    <input type="radio" name="payment" value="UPI (Demo)">
+                    UPI (Demo)
+                </label>
+
+                <button class="btn-primary full-width" type="submit">
+                    Place Demo Order
+                </button>
+                <p class="small-note">
+                    This is a frontend-only demonstration. No real payment is processed.
+                </p>
+            </form>
+
+            <div id="checkoutSummary" class="order-summary"></div>
+        </div>
+    </section>
+
+    <!-- ACCOUNT -->
+    <section id="accountPage" class="page hidden">
+        <div class="page-banner">
+            <span class="eyebrow">YOUR BOOKNOOK ACCOUNT</span>
+            <h1>My Account</h1>
+            <p>Manage your profile and your orders.</p>
+        </div>
+
+        <div id="accountContent" class="account-content"></div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="aboutPage" class="page hidden">
+        <div class="page-banner">
+            <span class="eyebrow">OUR LITTLE STORY</span>
+            <h1>A nook for every curious mind.</h1>
+            <p>Where books meet creativity and every study desk feels special.</p>
+        </div>
+
+        <div class="about-layout">
+            <img
+                src="https://images.unsplash.com/photo-1495446815901-a7297e633e8d?auto=format&fit=crop&w=1000&q=85"
+                alt="Books arranged on a bookshelf">
+
+            <div>
+                <span class="eyebrow">WELCOME TO BOOKNOOK</span>
+                <h2>More than just a bookstore.</h2>
+                <p>
+                    BookNook is a frontend e-commerce project created to
+                    bring together the joy of reading and the fun of stationery.
+                </p>
+                <p>
+                    From inspiring biographies and exciting novels to colorful
+                    pens, notebooks, and study essentials, our collection is
+                    designed for readers, students, and creative minds.
+                </p>
+                <p>
+                    Our mission is simple: make reading and studying a little
+                    more enjoyable, one page at a time.
+                </p>
+            </div>
+        </div>
+
+        <div class="values-grid">
+            <div><span>📚</span><h3>Love for Reading</h3>
+                <p>Stories and knowledge for every kind of reader.</p></div>
+            <div><span>✏️</span><h3>Creative Learning</h3>
+                <p>Study essentials that make every desk inspiring.</p></div>
+            <div><span>🌿</span><h3>Cozy Experience</h3>
+                <p>A welcoming little corner for book lovers.</p></div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contactPage" class="page hidden">
+        <div class="page-banner">
+            <span class="eyebrow">WE WOULD LOVE TO HEAR FROM YOU</span>
+            <h1>Contact BookNook</h1>
+            <p>Have a question? Send us a little note.</p>
+        </div>
+
+        <div class="contact-layout">
+            <div class="contact-info">
+                <h2>Let's talk books!</h2>
+                <p>For this demo project, use the contact form to try the interaction.</p>
+                <div class="contact-item"><span>✉</span>
+                    <div><strong>Email</strong><p>hello@booknook.example</p></div></div>
+                <div class="contact-item"><span>☎</span>
+                    <div><strong>Phone</strong><p>+91 98765 43210 (demo)</p></div></div>
+                <div class="contact-item"><span>⌖</span>
+                    <div><strong>Location</strong><p>Chennai, Tamil Nadu, India</p></div></div>
+            </div>
+
+            <form id="contactForm" class="checkout-form">
+                <label for="contactName">Your name</label>
+                <input id="contactName" required placeholder="Full name">
+
+                <label for="contactEmail">Email address</label>
+                <input id="contactEmail" type="email" required placeholder="Email">
+
+                <label for="contactSubject">Subject</label>
+                <input id="contactSubject" required placeholder="What is this about?">
+
+                <label for="contactMessage">Your message</label>
+                <textarea id="contactMessage" required rows="5"
+                          placeholder="Write your message..."></textarea>
+
+                <button class="btn-primary full-width" type="submit">
+                    Send Message →
+                </button>
+            </form>
+        </div>
+    </section>
+
+</main>
+
+<footer class="footer">
+    <div class="footer-main">
+        <div>
+            <div class="logo">
+                <span class="logo-icon">B</span>
+                <span>Book<span class="logo-green">Nook</span></span>
+            </div>
+            <p>Your cozy corner for books, stationery, and little inspirations.</p>
+        </div>
+
+        <div>
+            <h4>Explore</h4>
+            <button onclick="showPage('shop')">All Products</button>
+            <button onclick="filterCategory('Fiction')">Fiction</button>
+            <button onclick="filterCategory('Stationery')">Stationery</button>
+        </div>
+
+        <div>
+            <h4>Information</h4>
+            <button onclick="showPage('about')">About Us</button>
+            <button onclick="showPage('contact')">Contact Us</button>
+            <button onclick="showPage('account')">My Account</button>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <span>© 2026 BookNook. Created for a web development internship project.</span>
+        <span>Made with ♡ for book lovers.</span>
+    </div>
+</footer>
+
+<!-- LOGIN / REGISTER MODAL -->
+<div id="loginModal" class="modal hidden">
+    <div class="modal-backdrop" onclick="closeLogin()"></div>
+
+    <div class="modal-card">
+        <button class="modal-close" onclick="closeLogin()" aria-label="Close">×</button>
+
+        <div class="logo modal-logo">
+            <span class="logo-icon">B</span>
+            <span>Book<span class="logo-green">Nook</span></span>
+        </div>
+
+        <h2 id="loginTitle">Welcome back!</h2>
+        <p id="loginSubtitle">Sign in to your BookNook account.</p>
+
+        <form id="loginForm">
+            <div id="nameField" class="hidden">
+                <label for="loginName">Full name</label>
+                <input id="loginName" placeholder="Enter your name">
+            </div>
+
+            <label for="loginEmail">Email address</label>
+            <input id="loginEmail" type="email" required placeholder="you@example.com">
+
+            <label for="loginPassword">Password</label>
+            <input id="loginPassword" type="password" required minlength="4"
+                   placeholder="Enter your password">
+
+            <button type="submit" class="btn-primary full-width" id="loginSubmit">
+                Sign In
+            </button>
+        </form>
+
+        <p class="modal-switch">
+            <span id="switchText">Don't have an account?</span>
+            <button onclick="toggleLoginMode()" id="switchButton">Register</button>
+        </p>
+
+        <p class="small-note">Demo authentication only. No real account is created.</p>
+    </div>
+</div>
+
+<!-- TOAST -->
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
